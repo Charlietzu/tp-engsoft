@@ -1,6 +1,10 @@
 import type { Express, Router } from 'express'
-import PatientController from './controllers/patient.controller'
-import PatientRoute from './routes/patient.route'
+import AppointmentComposer from './composers/appointment.composer'
+import DoctorComposer from './composers/doctor.composer'
+import ExamComposer from './composers/exam.composer'
+import PatientComposer from './composers/patient.composer'
+import ReceptionistComposer from './composers/receptionist.composer'
+import UserComposer from './composers/user.composer'
 
 export default class App {
   app: Express
@@ -9,10 +13,14 @@ export default class App {
     this.app = app
     this.router = router
   }
-  
+
   private setupRoutes() {
-    const patientRoute = new PatientRoute(this.router, new PatientController())
-    patientRoute.buildRoutes()
+    new PatientComposer(this.router).compose()
+    new DoctorComposer(this.router).compose()
+    new ReceptionistComposer(this.router).compose()
+    new ExamComposer(this.router).compose()
+    new UserComposer(this.router).compose()
+    new AppointmentComposer(this.router).compose()
   }
 
   public run() {
