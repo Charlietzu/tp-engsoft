@@ -1,13 +1,9 @@
-import Patient, { PatientModel } from '../models/patient.model'
+import type { Response , Request} from 'express'
+import  PatientModel from '../models/patient.model'
 
 export default class PatientController {
-  private patientModel: PatientModel
-
-  constructor(patientModel: PatientModel) {
-    this.patientModel = patientModel
-  }
-
-  public getPatients(): Patient[] {
-    return this.patientModel.getPatients()
+  public async getPatients(_req: Request, res: Response) {
+    const result = await new PatientModel().retrievePatients()
+    return res.status(200).send(result)
   }
 }

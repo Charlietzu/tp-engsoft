@@ -1,3 +1,4 @@
+// use patient.model and user.model as inspiration
 type Appointment = {
   id: number
   doctorId: number

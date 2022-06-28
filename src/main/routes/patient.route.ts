@@ -4,6 +4,7 @@ import PatientController from '../controllers/patient.controller'
 export default class PatientRoute {
   private routes: Router
   private controller: PatientController
+  
   constructor(routes: Router, controller: PatientController) {
     this.routes = routes
     this.controller = controller

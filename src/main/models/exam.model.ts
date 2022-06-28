@@ -1,3 +1,4 @@
+// use patient.model and user.model as inspiration
 type Exam = {
   id: number
   createdAt: Date

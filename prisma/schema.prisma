@@ -44,7 +44,6 @@ model Receptionist {
   id            Int           @id @default(autoincrement())
   name          String
   cpf           String
-  hired_at      DateTime
   exam          Exam[]
   appointment   Appointment[]
   user_relation User          @relation(fields: [user_id], references: [id])

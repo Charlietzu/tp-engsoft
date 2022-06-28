@@ -1,21 +1,7 @@
-import Appointment from './appointment.model'
-import Exam from './exam.model'
+import prisma from "../../database/client";
 
-export class PatientModel {
-  private _patients: Patient[] = []
-
-  public getPatients(): Patient[] {
-    return this._patients
+export default class PatientModel {
+  public async retrievePatients() {
+    return await prisma.patient.findMany()
   }
 }
-
-export class Patient {
-  private id = 0
-  private userId = 0
-  private name = ''
-  private cpf = ''
-  private exam: Exam[] = []
-  private appointments: Appointment[] = []
-}
-
-export default Patient

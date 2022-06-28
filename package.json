@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "tsc",
-    "start": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "start": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/index.ts",
     "test": "jest",
     "lint": "eslint --ext .js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""

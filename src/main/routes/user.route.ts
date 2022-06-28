@@ -1,15 +1,15 @@
 import type { Router } from 'express'
+import UserController from '../controllers/user.controller'
 
 export default class UserRoute {
   private routes: Router
-  private controller: any
-  constructor(routes: Router, controller: any) {
+  private controller: UserController
+  constructor(routes: Router, controller: UserController) {
     this.routes = routes
     this.controller = controller
   }
   public buildRoutes() {
-    this.routes.post('/user', this.controller.InsertParticipant)
-    this.routes.get('/users', this.controller.getParticipants)
-    this.routes.delete('/user', this.controller.deleteParticipants)
+    this.routes.get('/users', this.controller.getUsers)
+    this.routes.get('/user/:id', this.controller.getUser)
   }
 }

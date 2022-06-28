@@ -1,22 +1,22 @@
-import type { Express } from 'express'
+import type { Express, Router } from 'express'
 import PatientController from './controllers/patient.controller'
-import { PatientModel } from './models/patient.model'
 import PatientRoute from './routes/patient.route'
 
 export default class App {
   app: Express
-  constructor(app: Express) {
+  router: Router
+  constructor(app: Express, router: Router) {
     this.app = app
+    this.router = router
   }
-  public setupRoutes() {
-    const patientRoute = new PatientRoute(
-      this.app.routes,
-      new PatientController(new PatientModel())
-    )
+  private setupRoutes() {
+    const patientRoute = new PatientRoute(this.router, new PatientController())
     patientRoute.buildRoutes()
   }
 
   public run() {
+    this.setupRoutes()
+    this.app.use(this.router)
     this.app.listen(3000, () =>
       console.log('🚀 Server ready at: http://localhost:3000')
     )
