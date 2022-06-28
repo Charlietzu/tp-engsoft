@@ -12,7 +12,10 @@ export default class AppointmentRoute {
   public buildRoutes() {
     this.routes.get('/appointments', this.controller.getAppointments)
     this.routes.get('/appointment/:id', this.controller.getAppointmentById)
-    this.routes.get('/appointment/patient/:id', this.controller.getAppointments)
+    this.routes.get(
+      '/appointment/patient/:id',
+      this.controller.getPatientAppointments
+    )
     this.routes.post('/appointment', this.controller.createAppointment)
     this.routes.put('/appointment/:id', this.controller.editAppointment)
     this.routes.delete('/appointment/:id', this.controller.deleteAppointment)
