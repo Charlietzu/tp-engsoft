@@ -11,7 +11,7 @@ export default class ExamRoute {
   }
   public buildRoutes() {
     this.routes.get('/exams', this.controller.getExams)
-    this.routes.get('/exam/:id', this.controller.getExams)
+    this.routes.get('/exam/:id', this.controller.getExamById)
     this.routes.post('/exam', this.controller.createExam)
     this.routes.put('/exam/:id', this.controller.editExam)
     this.routes.delete('/exam/:id', this.controller.deleteExam)
