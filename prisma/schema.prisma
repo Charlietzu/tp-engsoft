@@ -63,16 +63,16 @@ model Exam {
 }
 
 model Appointment {
-  id                 Int          @id @default(autoincrement())
-  created_at         DateTime     @default(now())
-  doctor             Doctor       @relation(fields: [doctor_id], references: [id])
-  doctor_id          Int
-  appointment_for    Patient      @relation(fields: [appointment_for_id], references: [id])
-  appointment_for_id Int
-  timestamp          DateTime
-  content            String?
-  created_by         Receptionist @relation(fields: [receptionist_id], references: [id])
-  receptionist_id    Int
+  id              Int          @id @default(autoincrement())
+  created_at      DateTime     @default(now())
+  doctor          Doctor       @relation(fields: [doctor_id], references: [id])
+  doctor_id       Int
+  appointment_for Patient      @relation(fields: [patient_id], references: [id])
+  patient_id      Int
+  timestamp       DateTime
+  content         String?
+  created_by      Receptionist @relation(fields: [receptionist_id], references: [id])
+  receptionist_id Int
 }
 
 enum Role {

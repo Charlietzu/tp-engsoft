@@ -9,6 +9,7 @@ export default class App {
     this.app = app
     this.router = router
   }
+  
   private setupRoutes() {
     const patientRoute = new PatientRoute(this.router, new PatientController())
     patientRoute.buildRoutes()
