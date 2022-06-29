@@ -7,7 +7,7 @@ export default class AppointmentModel {
   }
 
   public async retrieveAppointmentById(id: number) {
-    return await prisma.appointment.findFirst({ where: { id } })
+    return await prisma.appointment.findUnique({ where: { id } })
   }
 
   public async createAppointment(Appointment: Appointment) {

@@ -4,7 +4,7 @@ import UserModel from '../models/user.model'
 
 export default class UserController {
   public async getUsers(_req: Request, res: Response) {
-    const result = await new UserModel().retrieveUser()
+    const result = await new UserModel().retrieveUsers()
     return res.status(200).send(result)
   }
 

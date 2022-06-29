@@ -7,7 +7,7 @@ export default class DoctorModel {
   }
 
   public async retrieveDoctorById(id: number) {
-    return await prisma.doctor.findFirst({ where: { id } })
+    return await prisma.doctor.findUnique({ where: { id } })
   }
 
   public async createDoctor(Doctor: Doctor) {

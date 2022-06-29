@@ -1,77 +1,73 @@
-import { User, Role } from "@prisma/client";
-import UserModel from "../user.model";
-
-
-const user1: User = {
+import { prismaMock } from '../../../helpers/singleton'
+import UserModel from '../user.model'
+import { User } from '@prisma/client'
+const MOCKED_USERS: User[] = [
+  {
     id: 1,
-    role: Role.DOCTOR,
-    name: 'Larao'
-}
+    name: 'Teste',
+    role: 'DOCTOR',
+  },
+  {
+    id: 2,
+    name: 'Testessss',
+    role: 'RECEPTIONIST',
+  },
+]
 
-const user2: User = {
-  id: 2,
-  role: Role.RECEPTIONIST,
-  name: 'Larasso'
-}
+describe('User Model', () => {
+  it('findAll', async () => {
+    const NewModel = new UserModel()
+    prismaMock.user.findMany.mockResolvedValue(MOCKED_USERS)
 
-const userModel = new UserModel()
+    const result = await NewModel.retrieveUsers()
+    expect(result).toHaveLength(2)
+    expect(prismaMock.user.findMany.mock.calls).toHaveLength(1)
+    result.forEach((user, index) => expect(user).toBe(MOCKED_USERS[index]))
+  })
 
+  it('findUnique', async () => {
+    const NewModel = new UserModel()
+    prismaMock.user.findUnique.mockResolvedValue(MOCKED_USERS[0])
 
-describe('User Model Test', () => {
-    it('Should Return user', async () => {
-      await userModel.createUser(user1)
-      const users = await userModel.retrieveUser()
-      console.log(users)
-      expect(users).toHaveLength(1)
+    const result = await NewModel.retrieveUserById(MOCKED_USERS[0].id)
+    expect(prismaMock.user.findUnique.mock.calls).toHaveLength(1)
+    expect(result).toBe(MOCKED_USERS[0])
+  })
 
-      expect(users[0].id).toBe(user1.id)
-      expect(users[0].role).toBe(user1.role)
-      expect(users[0].name).toBe(user1.name)
+  it('findAll', async () => {
+    const NewModel = new UserModel()
+    prismaMock.user.findMany.mockResolvedValue(MOCKED_USERS)
 
-      await userModel.deleteUser(1)
-    });
+    const doctors = await NewModel.retrieveUsers()
+    expect(doctors).toHaveLength(2)
+    expect(prismaMock.user.findMany.mock.calls).toHaveLength(1)
+    doctors.forEach((doc, index) => expect(doc).toBe(MOCKED_USERS[index]))
+  })
 
-    it('Should Return user 1', async () => {
-      await userModel.createUser(user1)
-      const user = await userModel.retrieveUserById(1)
-      expect(user1.id).toBe(user?.id)
-      expect(user1.role).toBe(user?.role)
-      expect(user1.name).toBe(user?.name)
-      await userModel.deleteUser(1)
-    });
-  
-    
-    it('Should Return user 2', async () => {
-      await userModel.createUser(user1)
-      await userModel.createUser(user2)
-      const users = await userModel.retrieveUser()
-      const user = await userModel.retrieveUserById(2)
-      expect(user2.id).toBe(user?.id)
-      expect(user2.role).toBe(user?.role)
-      expect(user2.name).toBe(user?.name)
-      expect(users).toHaveLength(2)
-      await userModel.deleteUser(1)
-      await userModel.deleteUser(2)
-    });
+  it('findUnique', async () => {
+    const NewModel = new UserModel()
+    prismaMock.user.findUnique.mockResolvedValue(MOCKED_USERS[0])
 
-    it('Should delete user 2', async () => {
-      await userModel.createUser(user1)
-      let users = await userModel.retrieveUser()
-      expect(users).toHaveLength(1)
-      expect(users[0].id).toBe(user1.id)
-      await userModel.deleteUser(1)
-      users = await userModel.retrieveUser()
-      expect(users).toHaveLength(0)
-    });
+    const result = await NewModel.retrieveUserById(MOCKED_USERS[0].id)
+    expect(prismaMock.user.findUnique.mock.calls).toHaveLength(1)
+    expect(result).toBe(MOCKED_USERS[0])
+  })
 
-    it('Should edit user 2', async () => {
-      await userModel.createUser(user1)
-      await userModel.createUser(user2)
-      const editedUser2 = { ...user2, name: 'Larinho'}
-      await userModel.editUser(2, editedUser2)
-      const user = await userModel.retrieveUserById(2)
-      expect(user?.name).toBe('Larinho')
-      await userModel.deleteUser(2)
-      await userModel.deleteUser(1)
-    });
-  });
+  it('delete', async () => {
+    const NewModel = new UserModel()
+    prismaMock.user.delete.mockResolvedValue(MOCKED_USERS[0])
+
+    const result = await NewModel.deleteUser(MOCKED_USERS[0].id)
+    expect(prismaMock.user.delete.mock.calls).toHaveLength(1)
+    expect(result).toBe(MOCKED_USERS[0])
+  })
+
+  it('create', async () => {
+    const NewModel = new UserModel()
+    prismaMock.user.create.mockResolvedValue(MOCKED_USERS[0])
+
+    const result = await NewModel.createUser(MOCKED_USERS[0])
+    expect(prismaMock.user.create.mock.calls).toHaveLength(1)
+    expect(result).toBe(MOCKED_USERS[0])
+  })
+})

@@ -7,7 +7,7 @@ export default class ReceptionistModel {
   }
 
   public async retrieveReceptionistById(id: number) {
-    return await prisma.receptionist.findFirst({ where: { id } })
+    return await prisma.receptionist.findUnique({ where: { id } })
   }
 
   public async createReceptionist(Receptionist: Receptionist) {

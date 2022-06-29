@@ -7,7 +7,7 @@ export default class ExamModel {
   }
 
   public async retrieveExamById(id: number) {
-    return await prisma.exam.findFirst({ where: { id } })
+    return await prisma.exam.findUnique({ where: { id } })
   }
 
   public async createExam(Exam: Exam) {

@@ -2,7 +2,7 @@ import type { User } from '@prisma/client'
 import prisma from '../../database/client'
 
 export default class UserModel {
-  public async retrieveUser() {
+  public async retrieveUsers() {
     return await prisma.user.findMany()
   }
 
