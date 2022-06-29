@@ -20,7 +20,7 @@ export default class DoctorModel {
 
   public async editDoctor(id: number, Doctor: Partial<Omit<Doctor, 'id'>>) {
     return await prisma.doctor.update({
-      where: { id },
+      where: { id: Number(id) },
       data: { ...Doctor },
     })
   }
