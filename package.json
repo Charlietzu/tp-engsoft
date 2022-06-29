@@ -7,6 +7,7 @@
     "build": "tsc",
     "start": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/index.ts",
     "test": "jest",
+    "test-model": "docker-compose -f 'docker-compose-test.yml' up | jest",
     "lint": "eslint --ext src/.js,.ts .",
     "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
@@ -20,15 +21,17 @@
     "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
+    "jest": "^28.1.1",
+    "jest-mock-extended": "^2.0.4",
     "prettier": "^2.7.1",
-    "prisma": "^3.15.2",
+    "prisma": "^4.0.0",
+    "ts-jest": "^28.0.5",
     "ts-node": "^10.8.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "@prisma/client": "^3.15.2",
-    "express": "^4.18.1",
-    "jest": "^28.1.1"
+    "@prisma/client": "^4.0.0",
+    "express": "^4.18.1"
   }
 }

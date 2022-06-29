@@ -5,7 +5,7 @@ import ExamComposer from './composers/exam.composer'
 import PatientComposer from './composers/patient.composer'
 import ReceptionistComposer from './composers/receptionist.composer'
 import UserComposer from './composers/user.composer'
-
+import express from 'express'
 export default class App {
   app: Express
   router: Router
@@ -25,6 +25,7 @@ export default class App {
 
   public run() {
     this.setupRoutes()
+    this.app.use(express.json())
     this.app.use(this.router)
     this.app.listen(3000, () =>
       console.log('🚀 Server ready at: http://localhost:3000')
