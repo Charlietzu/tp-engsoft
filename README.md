@@ -10,7 +10,19 @@ Antes de tudo, deve-se instalar as dependências do projeto. Portanto, navegue a
 npm install
 ```
 
-Agora, ainda na pasta raíz, caso você queira rodar a apliação em si, deve-se:
+Agora, ainda na pasta raíz, caso você queira rodar a aplicação em si, deve-se:
+1. Criar um arquivo na raíz chamado `.env`. Nesse arquivo, devemos inserir o seguinte conteúdo:
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_SCHEMA=med_center
+POSTGRES_USER=africa
+POSTGRES_PASSWORD=village_people
+POSTGRES_DB=med_center_db
+
+DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${DB_HOST}:${DB_PORT}/${POSTGRES_DB}?schema=${DB_SCHEMA}&sslmode=prefer
+```
+2. Logo após criar o arquivo em questão, bastar rodarmos o comando abaixo e a API estará funcionando em _http://localhost:3000_
 ```bash
 npm run start
 ```
