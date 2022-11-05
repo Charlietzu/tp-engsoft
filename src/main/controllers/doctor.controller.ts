@@ -13,7 +13,13 @@ export default class DoctorController {
     res: Response
   ) {
     const { id } = req.params
+
+    if (!id) return res.status(400).send(null)
+
     const result = await new DoctorModel().retrieveDoctorById(id)
+
+    if (!result) return res.status(404).send(null)
+
     return res.status(200).send(result)
   }
 
@@ -21,7 +27,19 @@ export default class DoctorController {
     req: Request<unknown, unknown, Doctor, unknown>,
     res: Response
   ) {
-    const result = await new DoctorModel().createDoctor(req.body)
+    const body = req.body
+
+    if (!body) return res.status(400).send(null)
+
+    const doctorModel = new DoctorModel()
+    const allDoctors = await doctorModel.retrieveDoctors()
+    if (allDoctors.some((doctor) => doctor.crm === body.crm))
+      return res.status(400).send('doctor with same CRM already exists')
+
+    const result = await doctorModel.createDoctor(req.body)
+
+    if (!result) return res.status(500).send(null)
+
     return res.status(200).send(result)
   }
 
@@ -30,7 +48,14 @@ export default class DoctorController {
     res: Response
   ) {
     const { id } = req.params
-    const result = await new DoctorModel().editDoctor(id, req.body)
+    const body = req.body
+
+    if (!id || !body) return res.status(400).send(null)
+
+    const result = await new DoctorModel().editDoctor(id, body)
+
+    if (!result) return res.status(500).send(null)
+
     return res.status(200).send(result)
   }
 
@@ -39,7 +64,13 @@ export default class DoctorController {
     res: Response
   ) {
     const { id } = req.params
+
+    if (!id) return res.status(400).send(null)
+
     const result = await new DoctorModel().deleteDoctor(id)
+
+    if (!result) return res.status(500).send(null)
+
     return res.status(200).send(result)
   }
 }
