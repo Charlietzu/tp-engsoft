@@ -13,13 +13,7 @@ export default class ExamController {
     res: Response
   ) {
     const { id } = req.params
-
-    if (!id) return res.status(400).send(null)
-
     const result = await new ExamModel().retrieveExamById(id)
-
-    if (!result) return res.status(404).send(null)
-
     return res.status(200).send(result)
   }
 
@@ -27,14 +21,7 @@ export default class ExamController {
     req: Request<unknown, unknown, Exam, unknown>,
     res: Response
   ) {
-    const body = req.body
-
-    if (!body) return res.status(400).send(null)
-
-    const result = await new ExamModel().createExam(body)
-
-    if (!result) return res.status(500).send(null)
-
+    const result = await new ExamModel().createExam(req.body)
     return res.status(200).send(result)
   }
 
@@ -43,14 +30,7 @@ export default class ExamController {
     res: Response
   ) {
     const { id } = req.params
-    const body = req.body
-
-    if (!id || !body) return res.status(400).send(null)
-
     const result = await new ExamModel().editExam(id, req.body)
-
-    if (!result) return res.status(500).send(null)
-
     return res.status(200).send(result)
   }
 
@@ -59,13 +39,7 @@ export default class ExamController {
     res: Response
   ) {
     const { id } = req.params
-
-    if (!id) return res.status(400).send(null)
-
     const result = await new ExamModel().deleteExam(id)
-
-    if (!result) return res.status(500).send(null)
-
     return res.status(200).send(result)
   }
 
@@ -74,13 +48,7 @@ export default class ExamController {
     res: Response
   ) {
     const { id } = req.params
-
-    if (!id) return res.status(400).send(null)
-
     const result = await new ExamModel().retrievePatientExams(id)
-
-    if (!result) return res.status(500).send(null)
-
     return res.status(200).send(result)
   }
 }

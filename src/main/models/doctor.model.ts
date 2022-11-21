@@ -10,8 +10,8 @@ export default class DoctorModel {
     return await prisma.doctor.findUnique({ where: { id } })
   }
 
-  public async createDoctor(doctor: Doctor) {
-    return await prisma.doctor.create({ data: { ...doctor } })
+  public async createDoctor(Doctor: Doctor) {
+    return await prisma.doctor.create({ data: { ...Doctor } })
   }
 
   public async deleteDoctor(id: number) {
